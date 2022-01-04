@@ -11,23 +11,23 @@ fn main() {
     println!("Welcome, {}!", name);
 
     loop {
-        let mut playerHand: Vec<String> = Vec::new();
-        let mut computerHand: Vec<String> = Vec::new();
+        let mut player_hand: Vec<String> = Vec::new();
+        let mut computer_hand: Vec<String> = Vec::new();
 
-        playerHand.push(getCard(rand::thread_rng().gen_range(1..14)));
-        playerHand.push(getCard(rand::thread_rng().gen_range(1..14)));
-        computerHand.push(getCard(rand::thread_rng().gen_range(1..14)));
-        computerHand.push(getCard(rand::thread_rng().gen_range(1..14)));
-        if getScore(&playerHand) != 21 {
+        player_hand.push(getCard(rand::thread_rng().gen_range(1..14)));
+        player_hand.push(getCard(rand::thread_rng().gen_range(1..14)));
+        computer_hand.push(getCard(rand::thread_rng().gen_range(1..14)));
+        computer_hand.push(getCard(rand::thread_rng().gen_range(1..14)));
+        if getScore(&player_hand) != 21 {
             loop {
-                println!("{}'s Hand: {:?}", name, playerHand);
-                println!("{}'s Score: {}", name, getScore(&playerHand));
-                println!("Dealer's Showing Card: {}", computerHand[0]);
+                println!("{}'s Hand: {:?}", name, player_hand);
+                println!("{}'s Score: {}", name, getScore(&player_hand));
+                println!("Dealer's Showing Card: {}", computer_hand[0]);
                 println!("Would you like to [hit/hold]?");
                 let answer = stdin.lock().lines().next().unwrap().unwrap();
                 if answer.eq("hit") {
-                    playerHand.push(getCard(rand::thread_rng().gen_range(1..14)));
-                    let score = getScore(&playerHand);
+                    player_hand.push(getCard(rand::thread_rng().gen_range(1..14)));
+                    let score = getScore(&player_hand);
                     if score == 21 {
                         println!("BlackJack!! Congratulations {}, you won!", name);
                         break;
@@ -36,15 +36,15 @@ fn main() {
                         break;
                     }
                 } else {
-                    while getScore(&computerHand) < 17 {
-                        computerHand.push(getCard(rand::thread_rng().gen_range(1..14)));
+                    while getScore(&computer_hand) < 17 {
+                        computer_hand.push(getCard(rand::thread_rng().gen_range(1..14)));
                     }
-                    if getScore(&computerHand) > 21 {
+                    if getScore(&computer_hand) > 21 {
                         println!("Congratulations {}! You WON!", name);
-                    } else if getScore(&computerHand) < getScore(&playerHand) {
+                    } else if getScore(&computer_hand) < getScore(&player_hand) {
                         println!("Congratulations {}! You WON!", name);
-                    } else if getScore(&computerHand) > getScore(&playerHand) {
-                        println!("Sorry {}, you lost with a score of {}! You're bound to win next time!", name, getScore(&playerHand));
+                    } else if getScore(&computer_hand) > getScore(&player_hand) {
+                        println!("Sorry {}, you lost with a score of {}! You're bound to win next time!", name, getScore(&player_hand));
                     } else {
                         println!("You tied! Almost gottem!");
                     }
@@ -57,8 +57,8 @@ fn main() {
 
         
 
-        println!("{}'s Hand: {:?}", name, playerHand);
-        println!("Dealer's Hand: {:?}", computerHand);
+        println!("{}'s Hand: {:?}", name, player_hand);
+        println!("Dealer's Hand: {:?}", computer_hand);
 
 
         println!("Would you like to play again? [yes/no]");
